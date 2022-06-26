@@ -37,7 +37,7 @@ const ForgotPass = ({history}) =>{
       };
     const forgotPassForm = () => (
         <form onSubmit={handleSubmit}>
-          <input type="email" className='form-control mb-3' value={email} onChange={(e)=>setEmail(e.target.value)}/>
+          <input type="email" className='form-control mb-3' value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="enter your email"/>
           <button type="submit" className='btn btn-raised' disabled={!email}>Reset password </button>
         </form>
       )

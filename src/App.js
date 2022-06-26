@@ -17,6 +17,7 @@ import Password from "./pages/user/Password";
 import Wishlist from "./pages/user/Wishlist";
 import AdminRouter from "./components/routes/AdminRoutes";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import CategoryCreate from "./pages/admin/category/CategoryCreate";
 
 const App = () => {
 
@@ -59,6 +60,7 @@ const App = () => {
         <UserRouter path="/user/password" exact component={Password} />
         <UserRouter path="/user/wishlist" exact component={Wishlist} />
         <AdminRouter path="/admin/dashboard" exact component={AdminDashboard} />
+        <AdminRouter path="/admin/category" exact component={CategoryCreate} />
       </Switch>
     </>
     )

@@ -51,12 +51,17 @@ const Header = () => {
       style={{marginLeft:"auto"}}
       
     >
+    {user && user.role === 'subscriber' && 
       <Menu.Item  icon={<AppstoreOutlined />}>
-        Item-1
+      <Link to="/user/history">Dashboard</Link>  
       </Menu.Item>
-      <Menu.Item  icon={<AppstoreOutlined />}>
-        Item-2
-      </Menu.Item>
+    }
+    {user && user.role === "admin" && 
+    <Menu.Item  icon={<AppstoreOutlined />}>
+      <Link to="/admin/dashboard">Dashboard</Link>
+    </Menu.Item>
+}
+      
       <Menu.Item  icon={<LogoutOutlined/>} onClick={logout}>
         Logout
       </Menu.Item>

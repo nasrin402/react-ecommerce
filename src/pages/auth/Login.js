@@ -11,12 +11,12 @@ import {createOrUpdateUser} from "../../functions/auth";
  
 const Login =({history}) => {
   const [email, setEmail] = useState('nasreen.akter34@gmail.com');
-  const [password, setPassword] = useState('ccccccc');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const roleBasedRedirect = (res) =>{
     if(res.data.role === "admin"){
-      history.push("admin/dashboard");
+      history.push("/admin/dashboard");
     }else{
       history.push("/user/history")
     }
@@ -50,7 +50,7 @@ const Login =({history}) => {
     .catch((err) => console.log(err))
     //console.log("token",idToken);
   
-     history.push('/')
+    //  history.push('/')
    }catch(error) {
     toast.error(error.message);
     setLoading(false);
@@ -73,7 +73,7 @@ const Login =({history}) => {
           _id:res.data._id
         }
       });
-    roleBasedRedirect(res);
+      roleBasedRedirect(res);
     })
       .catch((err) => console.log(err))
       // history.push('/')
