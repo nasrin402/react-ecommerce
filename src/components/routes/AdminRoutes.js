@@ -11,7 +11,7 @@ const AdminRouter = ({ ...rest}) =>{
         if(user && user.token){
             currentAdmin(user.token)
             .then(res =>{
-                console.log("current admin res", res)
+               // console.log("current admin res", res)
                 setOk(true)
             })
             .catch(err => {

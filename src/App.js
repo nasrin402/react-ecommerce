@@ -1,8 +1,8 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { auth} from "./firebase";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { currentUser } from "./functions/auth";
 import Header from "./components/nav/Header";
@@ -18,35 +18,37 @@ import Wishlist from "./pages/user/Wishlist";
 import AdminRouter from "./components/routes/AdminRoutes";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import CategoryCreate from "./pages/admin/category/CategoryCreate";
+import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
+import SubCreate from "./pages/admin/sub/SubCreate";
 
 const App = () => {
-
   const dispatch = useDispatch();
   //to get firebase auth
-  useEffect(() =>{
-    
+  useEffect(() => {
     //const user = auth.currentUser;
     //console.log(user)
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if(user) {
+      if (user) {
         const idToken = await user.getIdTokenResult();
         //console.log("token",idToken);
         currentUser(idToken.token)
-        .then(res =>{  dispatch({
-          type:"LOGGED_IN_USER",
-          payload:{
-            name:res.data.name,
-            email:res.data.email,
-            token:idToken.token,
-            role:res.data.role,
-            _id:res.data._id
-          }
-        })})
-        .catch((err) => console.log(err))
+          .then((res) => {
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idToken.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+          })
+          .catch((err) => console.log(err));
       }
-    })
-  },[])
-  return ( 
+    });
+  }, []);
+  return (
     <>
       <Header />
       <ToastContainer />
@@ -61,9 +63,15 @@ const App = () => {
         <UserRouter path="/user/wishlist" exact component={Wishlist} />
         <AdminRouter path="/admin/dashboard" exact component={AdminDashboard} />
         <AdminRouter path="/admin/category" exact component={CategoryCreate} />
+        <AdminRouter
+          path="/admin/category/:slug"
+          exact
+          component={CategoryUpdate}
+        />
+        <AdminRouter path="/admin/sub" exact component={SubCreate} />
       </Switch>
     </>
-    )
+  );
 };
 
 export default App;

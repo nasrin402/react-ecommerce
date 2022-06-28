@@ -3,16 +3,19 @@ import AdminNav from "../../../components/nav/AdminNav";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import {
-  createCategory,
+  
   getCategories,
   removeCategory,
 } from "../../../functions/category";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
-const CategoryCreate = () => {
+import { createSub, removeSub, getSubs } from "../../../functions/sub";
+const SubCreate = () => {
   const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [subs, setSubs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
@@ -20,21 +23,25 @@ const CategoryCreate = () => {
   const [keyword, setKeyword] = useState("");
   useEffect(() => {
     loadCategories();
+    loadSubs();
   }, []);
 
   const loadCategories = () => {
     getCategories().then((c) => setCategories(c.data));
   };
+  const loadSubs = () => {
+    getSubs().then((c) => setSubs(c.data));
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(name);
     setLoading(true);
-    createCategory({ name }, user.token)
+    createSub({ name, parent:category }, user.token)
       .then((res) => {
         setLoading(false);
         setName("");
         toast.success(`"${res.data.name}" is created`);
-        loadCategories();
+        
       })
       .catch((err) => {
         console.log(err);
@@ -46,7 +53,7 @@ const CategoryCreate = () => {
   const handleRemove = async (slug) => {
     if (window.confirm("Delete?")) {
       setLoading(true);
-      removeCategory(slug, user.token)
+      removeSub(slug, user.token)
         .then((res) => {
           setLoading(false);
           toast.error(`${res.data.name} deleted`);
@@ -74,8 +81,20 @@ const CategoryCreate = () => {
           {loading ? (
             <h4 className="text-danger">Loading......</h4>
           ) : (
-            <h4>Create category</h4>
+            <h4>Create Sub category</h4>
           )}
+            <div className="form-group">
+              <label>Parent Category</label>
+              <select name="category" className="form-control" 
+              onChange={(e) => setCategory(e.target.value)}
+              >
+              <option>Please Select</option>
+              {categories.length > 0 && categories.map((c) =>(
+                <option key={c._id} value={c._id}>{c.name}</option>
+              ))}
+              </select>
+            </div>
+
           <CategoryForm
             handleSubmit={handleSubmit}
             name={name}
@@ -83,20 +102,20 @@ const CategoryCreate = () => {
           />
 
           {/*//step 2  //step 3*/}
-          <LocalSearch setKeyword={setKeyword} keyword={keyword}  placeholder="Search Category" />
+          <LocalSearch setKeyword={setKeyword} keyword={keyword} placeholder="Search Sub Category"/>
           
           {/*step-5*/}
-          {categories.filter(searched(keyword)).map((c) => (
-            <div className="alert alert-success" key={c._id}>
-              {c.name}
+          {subs.length > 0 && subs.filter(searched(keyword)).map((s) => (
+            <div className="alert alert-success" key={s._id}>
+              {s.name}
               <span className=" btn btn-sm float-right ">
                 <DeleteOutlined
                   className="text-danger"
-                  onClick={() => handleRemove(c.slug)}
+                  onClick={() => handleRemove(s.slug)}
                 />
               </span>
               <span className=" btn btn-sm float-right ">
-                <Link to={`/admin/category/${c.slug}`}>
+                <Link to={`/admin/sub/${s.slug}`}>
                   {" "}
                   <EditOutlined className="text-success" />
                 </Link>{" "}
@@ -108,4 +127,4 @@ const CategoryCreate = () => {
     </div>
   );
 };
-export default CategoryCreate;
+export default SubCreate;

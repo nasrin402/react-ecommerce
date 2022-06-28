@@ -27,21 +27,9 @@ const Header = () => {
     history.push("/login");
 
   }
-  const items = [
-    { label: 'Home', key: 'home' }, // remember to pass the key prop
-     // which is required
-    {
-      
-      key: 'SubMenu',
-      children: [{ label: 'Item-1', key: 'two' },
-      { label: 'Item-2', key: 'three' },
-      { label: 'Logout', key: 'logout' }],
-    },
-    { label: 'Login', key:"login" },
-    { label: 'Register', key:"register" },
-  ];
+  
   return( 
-  <Menu  mode="horizontal" defaultSelectedKeys={["home"]} >
+  <Menu  mode="horizontal" defaultSelectedKeys={["home"]}  >
     <Item  icon={<HomeOutlined/> }>
      <Link to="/"> Home</Link>
     </Item>
@@ -49,29 +37,29 @@ const Header = () => {
       title = {user.email.split('@')[0]}
       icon={<AppstoreOutlined />}
       style={{marginLeft:"auto"}}
-      
+      key= 'SubMenu'
     >
     {user && user.role === 'subscriber' && 
-      <Menu.Item  icon={<AppstoreOutlined />}>
+      <Menu.Item  icon={<AppstoreOutlined />} >
       <Link to="/user/history">Dashboard</Link>  
       </Menu.Item>
     }
     {user && user.role === "admin" && 
-    <Menu.Item  icon={<AppstoreOutlined />}>
+    <Menu.Item  icon={<AppstoreOutlined />} key="dashboard">
       <Link to="/admin/dashboard">Dashboard</Link>
     </Menu.Item>
 }
       
-      <Menu.Item  icon={<LogoutOutlined/>} onClick={logout}>
+      <Menu.Item key="logout" icon={<LogoutOutlined/>} onClick={logout} >
         Logout
       </Menu.Item>
       </SubMenu>}
     
-      {!user && <Item  icon={<UserOutlined/> }  style={{marginLeft:"auto"}}>
+      {!user && <Item  icon={<UserOutlined/> } key="login"  style={{marginLeft:"auto"}}>
         <Link to="/login">Login</Link>
       </Item>}
       
-    {!user && <Item  icon={<UserAddOutlined/> }  >
+    {!user && <Item  icon={<UserAddOutlined/> }  key="register">
       <Link to="/register">Register</Link>
     </Item>}
       
