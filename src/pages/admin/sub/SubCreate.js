@@ -41,7 +41,7 @@ const SubCreate = () => {
         setLoading(false);
         setName("");
         toast.success(`"${res.data.name}" is created`);
-        
+        loadSubs()
       })
       .catch((err) => {
         console.log(err);
@@ -57,7 +57,7 @@ const SubCreate = () => {
         .then((res) => {
           setLoading(false);
           toast.error(`${res.data.name} deleted`);
-          loadCategories();
+          loadSubs()
         })
         .catch((err) => {
           if (err.response.status === 400) {
