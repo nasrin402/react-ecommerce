@@ -76,7 +76,7 @@ const App = () => {
           component={SubUpdate}
         />
         <AdminRouter path="/admin/sub" exact component={SubCreate} />
-        <AdminRouter path="/admin/products" exact component={ProductCreate} />
+        <AdminRouter path="/admin/product" exact component={ProductCreate} />
       </Switch>
     </>
   );
