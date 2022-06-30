@@ -5,7 +5,9 @@ import { useSelector } from "react-redux";
 import { createProduct } from "../../../functions/product";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import { getCategories, getCategorySubs } from "../../../functions/category";
-
+import FileUpload from "../../../components/forms/FileUpload";
+import { Avatar, Image, Badge } from "antd";
+import axios from "axios";
 // import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 // import { Link, useParams } from "react-router-dom";
 // import CategoryForm from "../../../components/forms/CategoryForm";
@@ -17,7 +19,7 @@ const initialState = {
   price: "",
   categories: [],
   category: "",
-  subs: "",
+  subs: [],
   shipping: "",
   quantity: "",
   images: [],
@@ -29,6 +31,8 @@ const initialState = {
 const ProductCreate = () => {
   const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
+  const [showSub, setShowSub] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { user } = useSelector((state) => ({ ...state }));
   useEffect(() => {
     loadCategories();
@@ -59,12 +63,36 @@ const ProductCreate = () => {
   const handleCategoryChange = (e) =>{
     e.preventDefault()
     //console.log("clicked category", e.target.value);
-    setValues({...values, category: e.target.value});
+    setValues({...values, subs:[], category: e.target.value});
     getCategorySubs(e.target.value).then((res) =>{
       setSubOptions(res.data);
       //console.log(res.data);
-    })
+    });
+    setShowSub(true)
   }
+  // const handleImageRemove = (public_id) => {
+  //   axios
+  //     .post(
+  //       `${process.env.REACT_APP_API}/removeimage`,
+  //       { public_id },
+  //       {
+  //         headers: {
+  //           authtoken: user ? user.token : "",
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       setLoading(false);
+  //       const { images } = values;
+  //       let filteredImages = images.filter((item) => {
+  //         return item.public_id !== public_id;
+  //       });
+  //       setValues({ ...values, images: filteredImages });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
   return (
     <div className="container-fluid">
       <div className="row">
@@ -73,14 +101,21 @@ const ProductCreate = () => {
         </div>
         <div className="col-md-10">
           <h4>Create Product</h4>
+         
           <hr />
-          {/*{JSON.stringify(values)}*/}
+         {JSON.stringify(values.images)}
+        
+         <FileUpload values={values} setValues={setValues} setLoading={setLoading}/>
+          
           <ProductCreateForm
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             values={values}
             handleCategoryChange = {handleCategoryChange}
             subOptions = {subOptions}
+            showSub = {showSub}
+            setValues={setValues}
+         
           />
         </div>
       </div>
