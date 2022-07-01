@@ -8,10 +8,7 @@ import { getCategories, getCategorySubs } from "../../../functions/category";
 import FileUpload from "../../../components/forms/FileUpload";
 import { Avatar, Image, Badge } from "antd";
 import axios from "axios";
-// import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-// import { Link, useParams } from "react-router-dom";
-// import CategoryForm from "../../../components/forms/CategoryForm";
-// import LocalSearch from "../../../components/forms/LocalSearch";
+
 
 const initialState = {
   title: "",
@@ -70,29 +67,7 @@ const ProductCreate = () => {
     });
     setShowSub(true)
   }
-  // const handleImageRemove = (public_id) => {
-  //   axios
-  //     .post(
-  //       `${process.env.REACT_APP_API}/removeimage`,
-  //       { public_id },
-  //       {
-  //         headers: {
-  //           authtoken: user ? user.token : "",
-  //         },
-  //       }
-  //     )
-  //     .then((res) => {
-  //       setLoading(false);
-  //       const { images } = values;
-  //       let filteredImages = images.filter((item) => {
-  //         return item.public_id !== public_id;
-  //       });
-  //       setValues({ ...values, images: filteredImages });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+
   return (
     <div className="container-fluid">
       <div className="row">

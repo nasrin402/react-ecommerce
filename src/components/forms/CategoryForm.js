@@ -14,7 +14,7 @@ export default function CategoryForm({name, setName, handleSubmit}) {
           required
         />
         <button className="btn btn-raised">Save</button>
-      </div>
+      </div>z
     </form>
   )
 }
