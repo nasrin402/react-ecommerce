@@ -8,7 +8,7 @@ import { getCategories, getCategorySubs } from "../../../functions/category";
 import FileUpload from "../../../components/forms/FileUpload";
 import { Avatar, Image, Badge } from "antd";
 import axios from "axios";
-
+import { Space, Spin } from "antd";
 
 const initialState = {
   title: "",
@@ -75,7 +75,17 @@ const ProductCreate = () => {
           <AdminNav />
         </div>
         <div className="col-md-10">
+        {loading ? (
+          <h2>
+            {" "}
+            <Space size="middle">
+              <Spin size="large" />
+            </Space>
+          </h2>
+        ) : (
           <h4>Create Product</h4>
+        )}
+         
          
           <hr />
          {JSON.stringify(values.images)}
