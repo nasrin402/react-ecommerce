@@ -1,36 +1,25 @@
 import React, { useState, useEffect } from "react";
-import ProductCard from "../components/cards/ProductCard";
-import { getProductsByCount } from "../functions/product";
+import Jumbotron from "../components/cards/Jumbotron";
+import BestSeller from "../components/home/BestSeller";
+import NewArrivals from "../components/home/NewArrivals";
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(true);
-    getProductsByCount(10)
-      .then((res) => {
-        setLoading(false);
-        setProducts(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+
   return (
     <>
       <div>{/* JSON.stringify(products) */}</div>
-      <div className="jumbotron">
-        {loading ? <h2>Loading...</h2> : <h2>All products</h2>}
+      <div className="jumbotron text-center h1 text-danger font-weight-bold">
+        <Jumbotron text = {["Latest Products", "New Arivals", "Best seller Products"]} />
+        {/* loading ? <h2>Loading...</h2> : <h2>All products</h2> */}
       </div>
-      <div className="container">
-        <div className="row">
-          {products.map((product) => (
-            <div className="col-md-3" key={product._id}>
-              <ProductCard product={product} />
-            </div>
-          ))}
-        </div>
-      </div>
+      <h4 className="text-center p-3 mt-5 mb-5 dispaly-4 jumbotron">New Arrivals</h4>
+     <NewArrivals />
+
+     <br/>
+     <br/>
+     <br/>
+     <h4 className="text-center p-3 mt-5 mb-5 dispaly-4 jumbotron">Best Seller</h4>
+     <BestSeller />
     </>
   );
 };
