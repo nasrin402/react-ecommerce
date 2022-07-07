@@ -8,6 +8,7 @@ import laptop from "../../images/laptop.jpg";
 import ProductListItems from "./ProductListItems";
 import StarRatings from "react-star-ratings";
 import RatingModal from "../modal/RatingModal";
+import { showAverage } from "../../functions/rating";
 
 
 const { Meta } = Card;
@@ -28,7 +29,7 @@ const SingleProduct = ({ product, onStarRating, star }) => {
       </div>
       <div className="col-md-5">
         {/* {JSON.stringify(product)}
-    <h1 className="text-success">{title}</h1>*/}
+    */}
         <Card
           actions={[
             <div>
@@ -52,6 +53,9 @@ const SingleProduct = ({ product, onStarRating, star }) => {
           </RatingModal>
           ]}
         >
+        <h2 style={{display:"inline-block", marginRight:"50px"}}>{title}</h2>  {product && product.ratings && product.ratings.length > 0 ? (showAverage(product)) : (<h5 style={{display:"inline-block", }}>No ratings yet</h5>)}
+     
+    
           <ProductListItems product={product} />
           {/*<Meta title={title} description={description} />  */}
         </Card>

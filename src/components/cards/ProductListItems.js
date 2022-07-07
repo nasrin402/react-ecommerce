@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { showAverage } from "../../functions/rating";
 
 
 const ProductListItems = ({ product }) => {
@@ -19,8 +20,7 @@ const ProductListItems = ({ product }) => {
 
   return (
     <div>
-      <h2>{title}</h2>
-     <p>rating here</p>
+      
       <h2 className="text-primary">${price}</h2>
       <p>{description}</p>
       <p>select quantity</p>
