@@ -1,41 +1,41 @@
 import React, {useState, useEffect} from 'react';
 import ProductCard from '../../components/cards/ProductCard';
-import { getCategory } from '../../functions/category';
+import { getSub } from '../../functions/sub';
 
 
 
-const CategoryHome = ({match}) => {
-    const [category, setCategory] = useState({})
+const SubCategoryHome = ({match}) => {
+    const [sub, setSub] = useState({})
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(false)
 const {slug} = match.params;
 useEffect(() =>{
     setLoading(true)
-    getCategory(slug).then((res) =>{
+    getSub(slug).then((res) =>{
         setLoading(false)
-        setCategory(res.data.category)
+        setSub(res.data.sub)
         setProducts(res.data.products)
     }).catch (err =>{
         console.log(err)
     })
 }, [])
-    console.log(category.name)
+  
     return (
         <div className='container'>
             <div className='row'>
                 <div className='col-md-12'>
                     {loading ? (
-                        <h4>Loading</h4>): (<h4 className='text-center jumbotron'>{products.length} products in "{category.name}" category</h4>)
+                        <h4>Loading</h4>): (<h4 className='text-center jumbotron'>{products.length} products in "{sub.name}" sub category</h4>)
                     }
                 </div>
-                
-                {products.map((p) =><div className='col-md-4 mb-5' key={p._id}> <ProductCard product={p}/></div>)}
+                <div className='row'>
+                {products.map((p) =><div className='col-md-4' key={p._id}> <ProductCard product={p}/></div>)}
                    
-             
+                </div>
             </div>
       
         </div>
     );
 }
 
-export default CategoryHome;
+export default SubCategoryHome;

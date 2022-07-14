@@ -37,7 +37,7 @@ const BestSeller = () => {
     <>
       <div className="container">
         {loading ? (
-          <LoadingCard count={4} />
+          <LoadingCard count={3} />
         ) : (
           <div className="row">
             {products.map((product) => (

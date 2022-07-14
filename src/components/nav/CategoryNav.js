@@ -17,8 +17,9 @@ const CategoryNav = () =>{
    
 
     return (
-        <div>
-            {categories.map((c) => <div className="btn btn-outlined-primary btn-lg btn-block btn-raised text-success" key={c._id}><Link to={`/category/${c.slug}`}>{c.name}</Link></div>)}
+        <div className="text-center">
+        <span className="btn btn-outlined-primary btn-lg mr-3 btn-raised text-success">All</span>
+            {categories.map((c) => <span className="btn btn-outlined-primary btn-lg mr-3 btn-raised text-success" key={c._id}><Link to={`/category/${c.slug}`}>{c.name}</Link></span>)}
         </div>
     )
 
