@@ -16,6 +16,8 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import Search from "../forms/search";
+import HeaderTop from "./HeaderTop";
+import HeaderBottom from "./HeaderBottom";
 
 const Header = () => {
   const { Item, SubMenu } = Menu;
@@ -39,7 +41,10 @@ const Header = () => {
 
   return (
     <>
-      <Menu mode="horizontal" defaultSelectedKeys={["home"]}>
+    <header id="header">
+      <HeaderTop />
+      <HeaderBottom />
+    { /*  <Menu mode="horizontal" defaultSelectedKeys={["home"]}>
         <Item icon={<HomeOutlined />}>
           <Link to="/"> Home</Link>
         </Item>
@@ -85,7 +90,8 @@ const Header = () => {
             <Search />
           </span>
         </Item>
-      </Menu>
+      </Menu> */}
+      </header>
     </>
   );
 };

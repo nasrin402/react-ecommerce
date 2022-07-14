@@ -28,6 +28,7 @@ import Product from "./pages/Product";
 import CategoryHome from "./pages/category/CategoryHome";
 import SubCategoryHome from "./pages/sub/SubCategoryHome";
 import Shop from "./pages/Shop";
+import HomeMain from "./pages/HomeMain";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ const App = () => {
       <Header />
       <ToastContainer />
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact component={HomeMain} />
         <Route path="/login" exact component={Login} />
         <Route path="/register" exact component={Register} />
         <Route path="/register/complete" exact component={RegisterComplete} />
