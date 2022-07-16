@@ -14,7 +14,7 @@ const BannerSlider = () => {
                 className="navbar-nav w-100 overflow-hidden"
                 style={{ height: "410px" }}
               >
-                <div className="nav-item dropdown">
+                {/* <div className="nav-item dropdown">
                   <a href="#" className="nav-link" data-toggle="dropdown">
                     Dresses{" "}
                     <i className="fa fa-angle-down float-right mt-1"></i>
@@ -30,7 +30,7 @@ const BannerSlider = () => {
                       Baby's Dresses
                     </a>
                   </div>
-                </div>
+  </div> */}
                 <a href="" className="nav-item nav-link">
                   Shirts
                 </a>

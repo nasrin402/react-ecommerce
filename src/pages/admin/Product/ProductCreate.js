@@ -57,54 +57,58 @@ const ProductCreate = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
     // console.log(e.target.name, '---------', e.target.value)
   };
-  const handleCategoryChange = (e) =>{
-    e.preventDefault()
+  const handleCategoryChange = (e) => {
+    e.preventDefault();
     //console.log("clicked category", e.target.value);
-    setValues({...values, subs:[], category: e.target.value});
-    getCategorySubs(e.target.value).then((res) =>{
+    setValues({ ...values, subs: [], category: e.target.value });
+    getCategorySubs(e.target.value).then((res) => {
       setSubOptions(res.data);
       //console.log(res.data);
     });
-    setShowSub(true)
-  }
+    setShowSub(true);
+  };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-        <div className="col-md-10">
-        {loading ? (
-          <h2>
-            {" "}
-            <Space size="middle">
-              <Spin size="large" />
-            </Space>
-          </h2>
-        ) : (
-          <h4>Create Product</h4>
-        )}
-         
-         
-          <hr />
-         {JSON.stringify(values.images)}
-        
-         <FileUpload values={values} setValues={setValues} setLoading={setLoading}/>
-          
-          <ProductCreateForm
-            handleSubmit={handleSubmit}
-            handleChange={handleChange}
-            values={values}
-            handleCategoryChange = {handleCategoryChange}
-            subOptions = {subOptions}
-            showSub = {showSub}
-            setValues={setValues}
-         
-          />
+    <>
+      <div className="container-fluid mb-5">
+        <div className="row border-top px-xl-5">
+          <div className="col-lg-3">
+            <AdminNav />
+          </div>
+          <div className="col-lg-9">
+            {loading ? (
+              <h2>
+                {" "}
+                <Space size="middle">
+                  <Spin size="large" />
+                </Space>
+              </h2>
+            ) : (
+              <h4>Create Product</h4>
+            )}
+
+            <hr />
+            <div className="productForm bg-secondary">
+              
+              <ProductCreateForm
+                handleSubmit={handleSubmit}
+                handleChange={handleChange}
+                values={values}
+                handleCategoryChange={handleCategoryChange}
+                subOptions={subOptions}
+                showSub={showSub}
+                setValues={setValues}
+              />
+              <FileUpload
+                values={values}
+                setValues={setValues}
+                setLoading={setLoading}
+              />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

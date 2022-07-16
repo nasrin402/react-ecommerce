@@ -11,6 +11,9 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Link, useParams } from "react-router-dom";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
+import { Space, Spin } from "antd";
+
+
 const CategoryCreate = () => {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -65,23 +68,33 @@ const CategoryCreate = () => {
   const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-        <div className="col">
-          {loading ? (
-            <h4 className="text-danger">Loading......</h4>
-          ) : (
-            <h4>Create category</h4>
-          )}
-          <CategoryForm
-            handleSubmit={handleSubmit}
-            name={name}
-            setName={setName}
-          />
+    <div className="container-fluid mb-5">
+    <div className="row border-top px-xl-5">
+      <div className="col-lg-3">
+        <AdminNav />
+      </div>
+      <div className="col-lg-9">
+        {loading ? (
+          <h2>
+            {" "}
+            <Space size="middle">
+              <Spin size="large" />
+            </Space>
+          </h2>
+        ) : (
+          <h4>Create Product</h4>
+        )}
 
+        <hr />
+        <div className="productForm bg-secondary">
+        <CategoryForm
+        handleSubmit={handleSubmit}
+        name={name}
+        setName={setName}
+      />
+
+        
+         
           {/*//step 2  //step 3*/}
           <LocalSearch setKeyword={setKeyword} keyword={keyword}  placeholder="Search Category" />
           
@@ -103,6 +116,7 @@ const CategoryCreate = () => {
               </span>
             </div>
           ))}
+          </div>
         </div>
       </div>
     </div>

@@ -32,11 +32,10 @@ const HeaderBottom = () => {
              <Link
                 className="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
                 data-toggle="collapse"
-                to="#navbar-vertical"
                 style={{ height: "65px", marginTop: "-1px", padding: "0 30px" }}
               >
                 <h6 className="m-0">Categories</h6>
-                <i className="fa fa-angle-down text-dark"></i>
+                
              </Link>
             </div>
             <div className="col-lg-9">

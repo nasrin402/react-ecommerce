@@ -4,7 +4,7 @@ export default function CategoryForm({name, setName, handleSubmit}) {
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
-        <label>Name</label>
+        <label>Create category</label>
         <input
           type="text"
           className="form-control mb-3"
@@ -13,8 +13,8 @@ export default function CategoryForm({name, setName, handleSubmit}) {
           autoFocus
           required
         />
-        <button className="btn btn-raised">Save</button>
-      </div>z
+        <button className="btn btn-raised btn-primary mb-3">Save</button>
+      </div>
     </form>
   )
 }
