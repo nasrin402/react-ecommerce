@@ -6,36 +6,47 @@ import {
   getProductsByCount,
 } from "../functions/product";
 import { getCategories } from "../functions/category";
+import { getSubs } from "../functions/sub";
 import { Menu, Slider, Checkbox } from "antd";
-import { DollarOutlined, DownSquareOutlined } from "@ant-design/icons";
+import {
+  DollarOutlined,
+  DownSquareOutlined,
+  StarOutlined,
+} from "@ant-design/icons";
+import Star from "../components/forms/Star";
 
 const { SubMenu } = Menu;
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [subs, setSubs] = useState([]);
+  const [sub, setSub] = useState("");
   const [categoryIds, setCategoryIds] = useState([]); // send this ids to backend
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState([0, 0]);
   const [ok, setOk] = useState(true);
   const { search } = useSelector((state) => ({ ...state }));
   const { text } = search;
+  const [star, setStar] = useState("");
   let dispatch = useDispatch();
 
   useEffect(() => {
     loadAllProducts();
     getCategories().then((c) => {
       setCategories(c.data);
-      setLoading(false);
     });
+    getSubs().then((res) => setSubs(res.data));
   }, []);
 
   // 1. load products by default on page load
   const loadAllProducts = () => {
     setLoading(true);
-    getProductsByCount(10).then((p) => {
+    getProductsByCount(12).then((p) => {
       setProducts(p.data);
       setLoading(false);
+      
     });
+    
   };
   const fetchProducts = (arg) => {
     fetchProductsByFilter(arg).then((res) => {
@@ -47,6 +58,7 @@ const Shop = () => {
     const delayed = setTimeout(() => {
       fetchProducts({ query: text });
     }, 300);
+   
     return () => clearTimeout(delayed);
   }, [text]);
 
@@ -60,7 +72,8 @@ const Shop = () => {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
-    setCategoryIds([])
+    setCategoryIds([]);
+    setSub("");
     setPrice(value);
     setTimeout(() => {
       setOk(!ok);
@@ -74,35 +87,75 @@ const Shop = () => {
       payload: { text: "" },
     });
     setPrice([0, 0]);
+    setStar("");
+    setSub("");
     //console.log(e.target.value)
     let inTheState = [...categoryIds];
-    let justChecked = e.target.value
-    let foundInTheState = inTheState.indexOf(justChecked)// index or -1
+    let justChecked = e.target.value;
+    let foundInTheState = inTheState.indexOf(justChecked); // index or -1
     // if not found return -1 else return index [1, 2, 3, 4,]
-    if(foundInTheState === -1){
-      inTheState.push(justChecked)
-    }else{
+    if (foundInTheState === -1) {
+      inTheState.push(justChecked);
+    } else {
       // if found pull out from the item
-      inTheState.splice(foundInTheState, 1)
+      inTheState.splice(foundInTheState, 1);
     }
     setCategoryIds(inTheState);
     //console.log(inTheState);
-    fetchProducts({category: inTheState})
+    fetchProducts({ category: inTheState });
   };
 
+  //5. load products based on ratings
+  const handleStarClick = (num) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setSub("");
+    setStar(num);
+    fetchProducts({ stars: num });
+  };
+
+  //6. load products based on sub categories
+  const handleSub = (s) => {
+    //console.log("SUB", s);
+    setSub(s);
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar("");
+    fetchProducts({ sub: s });
+  };
+
+  const showStars = () => (
+    <div className="px-4 pb-2">
+      <Star starClick={handleStarClick} numberOfStars={5} /> <br />
+      <Star starClick={handleStarClick} numberOfStars={4} />
+      <br />
+      <Star starClick={handleStarClick} numberOfStars={3} />
+      <br />
+      <Star starClick={handleStarClick} numberOfStars={2} />
+      <br />
+      <Star starClick={handleStarClick} numberOfStars={1} />
+    </div>
+  );
   return (
-    <div className="container-fluid">
+    <div className="container">
       <div className="row">
         <div className="col-md-3 pt-3">
           <h3>Search/ Filter</h3>
           <hr />
-          <Menu defaultOpenKeys={["1", "2"]} mode="inline">
+          <Menu defaultOpenKeys={["1", "2", "3", "4"]} mode="inline">
             <SubMenu
               key="1"
               title={
-                <span className="h6">
-                  <DollarOutlined />
-                  Price
+                <span className="h3">
+                  <DollarOutlined /> Price
                 </span>
               }
             >
@@ -120,9 +173,8 @@ const Shop = () => {
             <SubMenu
               key="2"
               title={
-                <span className="h6">
-                  <DownSquareOutlined />
-                  Categories
+                <span className="h3">
+                  <DownSquareOutlined /> Categories
                 </span>
               }
             >
@@ -143,22 +195,53 @@ const Shop = () => {
                 ))}
               </div>
             </SubMenu>
+            <SubMenu
+              key="3"
+              title={
+                <span className="h3">
+                  <StarOutlined /> Ratings
+                </span>
+              }
+            >
+              <div className="mt-3">{showStars()}</div>
+            </SubMenu>
+            <SubMenu
+              key="4"
+              title={
+                <span className="h3">
+                  <DownSquareOutlined /> Sub Categories
+                </span>
+              }
+            >
+              <div className="mt-3">
+                {subs.map((s) => (
+                  <div
+                    key={s._id}
+                    onClick={() => handleSub(s)}
+                    className="p-3 m-1 badge badge-secondary"
+                    style={{ cursor: "pointer" }}
+                  >
+                    {s.name}
+                  </div>
+                ))}
+              </div>
+            </SubMenu>
           </Menu>
         </div>
         <div className="col-md-9 pt-3">
           {loading ? (
-            <h4 className="text-danger">Loading..</h4>
+            <h3>Loading......</h3>
           ) : (
-            <h4>Products</h4>
+            <h2 style={{ color: "#FE980F" }}>Products</h2>
           )}
-          {products.length < 1 && <p>No products found</p>}
           <div className="container">
             <div className="row">
-              {products.map((p) => (
-                <div key={p._id} className="col-md-4 my-3">
-                  <ProductCard product={p} />
-                </div>
-              ))}
+              {products.length > 1 &&
+                products.map((p) => (
+                  <div key={p._id} className="col-md-4 my-3">
+                    <ProductCard product={p} />
+                  </div>
+                ))}
             </div>
           </div>
         </div>

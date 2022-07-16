@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
-import { Button } from "antd";
+import { Modal, Button } from "antd";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -101,7 +101,38 @@ const Login = ({ history }) => {
     }
   };
   const loginForm = () => (
+    
     <form onSubmit={handleSubmit}>
+    <div class="form-group">
+      <input
+        type="email"
+        class="form-control border-0 py-4"
+        placeholder="Enter Email"
+        required="required"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="password"
+        class="form-control border-0 py-4"
+        required="required"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="enter password"
+      />
+    </div>
+    <div>
+      <button
+        class="btn btn-primary btn-block border-0 py-3 mb-3"
+        type="submit"
+      >
+      Login with Email/Password
+      </button>
+    </div>
+  </form>
+    /* <form  >
       <input
         type="email"
         className="form-control mb-3"
@@ -130,25 +161,33 @@ const Login = ({ history }) => {
       >
         Login with Email/Password
       </Button>
-    </form>
+    </form> */
   );
   return (
+    
     <div className="container p-5">
       <div className="row">
-        <div className="col-md-6 offset-md-3">
-          {loading ? <h4 className="text-danger">Loading</h4> : <h4>Login</h4>}
+        <div className="col-md-6 offset-md-3 bg-secondary loginForm">
+          {loading ? <h4 className="text-danger">Loading</h4> : <h5 class="font-weight-bold text-dark mb-4">Login</h5>}
           {loginForm()}
-          <Button
+          {/* <Button
             type="danger"
             onClick={googleLogin}
-            className="mb-3"
+            className="btn btn-primary btn-block border-0 py-3"
             block
             shape="round"
             icon={<GoogleOutlined />}
             size="large"
           >
             Login with Google
-          </Button>
+  </Button> */}
+          <button
+          class="btn btn-danger btn-block border-0 py-3 mb-3"
+          type="submit"
+          onClick={googleLogin}
+        >
+        Login with Google
+        </button>
           <Link
             to="/forgot/password"
             className="text-danger"
@@ -159,6 +198,7 @@ const Login = ({ history }) => {
         </div>
       </div>
     </div>
+    
   );
 };
 

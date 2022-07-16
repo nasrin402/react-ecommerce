@@ -39,7 +39,7 @@ const Product = ({ match }) => {
     console.log(newRating, name);
   };
   return (
-    <div className="container-fluid">
+    <div className="container">
       {/* JSON.stringify(product) */}
       <div className="row pt-5">
         <SingleProduct

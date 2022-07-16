@@ -33,7 +33,7 @@ const SingleProduct = ({ product, onStarRating, star }) => {
         <Card
           actions={[
             <div>
-              <ShoppingCartOutlined className="text-success" /> <br />
+              <ShoppingCartOutlined className="text-warning" /> <br />
               Add to cart
             </div>,
             <Link to="/">
@@ -44,7 +44,7 @@ const SingleProduct = ({ product, onStarRating, star }) => {
             <RatingModal>
             <StarRatings
               rating={star}
-              starRatedColor="#009688"
+              starRatedColor="#FE980F"
               changeRating={onStarRating}
               numberOfStars={5}
               name={_id}

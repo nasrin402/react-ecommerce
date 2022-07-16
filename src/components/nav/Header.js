@@ -13,11 +13,12 @@ import {
   UserOutlined,
   LogoutOutlined,
   ShoppingOutlined,
+  ShoppingCartOutlined,
+  HeartOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import Search from "../forms/search";
-import HeaderTop from "./HeaderTop";
-import HeaderBottom from "./HeaderBottom";
+
 
 const Header = () => {
   const { Item, SubMenu } = Menu;
@@ -41,57 +42,83 @@ const Header = () => {
 
   return (
     <>
-    <header id="header">
-      <HeaderTop />
-      <HeaderBottom />
-    { /*  <Menu mode="horizontal" defaultSelectedKeys={["home"]}>
-        <Item icon={<HomeOutlined />}>
-          <Link to="/"> Home</Link>
-        </Item>
-        <Item style={{ marginRight: "auto" }} icon={<ShoppingOutlined />}>
-          <Link to="/shop"> Shop</Link>
-        </Item>
-
-        {user && (
-          <SubMenu
-            title={user.email.split("@")[0]}
-            icon={<AppstoreOutlined />}
-            key="SubMenu"
-          >
-            {user && user.role === "subscriber" && (
-              <Menu.Item icon={<AppstoreOutlined />}>
-                <Link to="/user/history">Dashboard</Link>
-              </Menu.Item>
-            )}
-            {user && user.role === "admin" && (
-              <Menu.Item icon={<AppstoreOutlined />} key="dashboard">
-                <Link to="/admin/dashboard">Dashboard</Link>
-              </Menu.Item>
-            )}
-
-            <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={logout}>
-              Logout
-            </Menu.Item>
-          </SubMenu>
-        )}
-        {!user && (
-          <Item icon={<UserOutlined />} key="login">
-            <Link to="/login">Login</Link>
+    <div class="header-bottom">
+    <div class="container">
+      <div class="row">
+      <div class="col-sm-2">
+        logo
+      </div>
+        <div class="col-sm-7">
+          <div class="mainmenu pull-center">
+          <Menu mode="horizontal" defaultSelectedKeys={["home"]}>
+          <Item icon={<HomeOutlined />}>
+            <Link to="/"> Home</Link>
           </Item>
-        )}
-
-        {!user && (
-          <Item icon={<UserAddOutlined />} key="register">
-            <Link to="/register">Register</Link>
+          <Item icon={<ShoppingOutlined />}>
+            <Link to="/shop"> Shop</Link>
           </Item>
-        )}
-        <Item>
-          <span>
+          <Item>
+            <Link to="/shop">
+              {" "}
+              <ShoppingCartOutlined />
+            </Link>
+          </Item>
+          <Item>
+            <Link to="/shop">
+              {" "}
+              <HeartOutlined />
+            </Link>
+          </Item>
+
+          {user && (
+            <SubMenu
+              title={user.email.split("@")[0]}
+              icon={<AppstoreOutlined />}
+              key="SubMenu"
+            >
+              {user && user.role === "subscriber" && (
+                <Menu.Item icon={<AppstoreOutlined />}>
+                  <Link to="/user/history">Dashboard</Link>
+                </Menu.Item>
+              )}
+              {user && user.role === "admin" && (
+                <Menu.Item icon={<AppstoreOutlined />} key="dashboard">
+                  <Link to="/admin/dashboard">Dashboard</Link>
+                </Menu.Item>
+              )}
+
+              <Menu.Item
+                key="logout"
+                icon={<LogoutOutlined />}
+                onClick={logout}
+              >
+                Logout
+              </Menu.Item>
+            </SubMenu>
+          )}
+          {!user && (
+            <SubMenu icon={<UserOutlined />} key="SubMenu">
+              <Item icon={<UserOutlined />} key="login">
+                <Link to="/login">Login</Link>
+              </Item>
+              <Item icon={<UserAddOutlined />} key="register">
+                <Link to="/register">Register</Link>
+              </Item>
+            </SubMenu>
+          )}
+        </Menu>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class=" pull-right">
             <Search />
-          </span>
-        </Item>
-      </Menu> */}
-      </header>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+          
+     
     </>
   );
 };

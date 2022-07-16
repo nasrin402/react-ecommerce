@@ -32,15 +32,36 @@ import { toast } from 'react-toastify';
     
   };
   const registerForm = () => (
-    <form onSubmit={handleSubmit}>
+    /* <form onSubmit={handleSubmit}>
       <input type="email" className='form-control mb-3' value={email} onChange={e => setEmail(e.target.value)} autoFocus/>
       <button type="submit" className='btn btn-raised'>Register </button>
-    </form>
+    </form> */
+    <form onSubmit={handleSubmit}>
+    <div class="form-group">
+      <input
+        type="email"
+        class="form-control border-0 py-4"
+        placeholder="Enter Email"
+        required="required"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+    </div>
+   
+    <div>
+      <button
+        class="btn btn-primary btn-block border-0 py-3 mb-3"
+        type="submit"
+      >
+     Register
+      </button>
+    </div>
+  </form>
   )
   return (
     <div className="container p-5">
       <div className='row'>
-        <div className='col-md-6 offset-md-3'>
+        <div className='col-md-6 offset-md-3 bg-secondary loginForm'>
           <h3>Register</h3>
         
           {registerForm()}

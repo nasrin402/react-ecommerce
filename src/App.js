@@ -28,7 +28,9 @@ import Product from "./pages/Product";
 import CategoryHome from "./pages/category/CategoryHome";
 import SubCategoryHome from "./pages/sub/SubCategoryHome";
 import Shop from "./pages/Shop";
+import MainHeader from "./components/nav/MainHeader";
 import HomeMain from "./pages/HomeMain";
+import Footer from "./components/footer/Footer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -59,7 +61,7 @@ const App = () => {
   }, []);
   return (
     <>
-      <Header />
+      <MainHeader/>
       <ToastContainer />
       <Switch>
         <Route path="/" exact component={HomeMain} />
@@ -92,6 +94,7 @@ const App = () => {
         <Route path="/shop" exact component={Shop} />
 
       </Switch>
+      <Footer />
     </>
   );
 };
