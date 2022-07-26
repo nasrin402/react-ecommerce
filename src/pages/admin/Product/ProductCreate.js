@@ -70,7 +70,7 @@ const ProductCreate = () => {
 
   return (
     <>
-      <div className="container-fluid mb-5">
+      <div className="container-fluid ">
         <div className="row border-top px-xl-5">
           <div className="col-lg-3">
             <AdminNav />

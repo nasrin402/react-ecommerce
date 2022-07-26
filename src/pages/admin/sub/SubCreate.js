@@ -72,29 +72,30 @@ const SubCreate = () => {
   const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-        <div className="col">
+    <div className="container-fluid ">
+    <div className="row border-top px-xl-5">
+      <div className="col-lg-3">
+        <AdminNav />
+      </div>
+      <div className="col-lg-9">
           {loading ? (
             <h4 className="text-danger">Loading......</h4>
           ) : (
             <h4>Create Sub category</h4>
           )}
+          <div className="productForm bg-secondary">
             <div className="form-group">
               <label>Parent Category</label>
               <select name="category" className="form-control" 
               onChange={(e) => setCategory(e.target.value)}
               >
-              <option>Please Select</option>
+              <option>Please Select Parent Category</option>
               {categories.length > 0 && categories.map((c) =>(
                 <option key={c._id} value={c._id}>{c.name}</option>
               ))}
               </select>
             </div>
-
+            
           <CategoryForm
             handleSubmit={handleSubmit}
             name={name}
@@ -122,6 +123,7 @@ const SubCreate = () => {
               </span>
             </div>
           ))}
+          </div>
         </div>
       </div>
     </div>
