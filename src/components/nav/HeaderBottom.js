@@ -30,7 +30,7 @@ const HeaderBottom = () => {
           <div className="row border-top px-xl-5">
           <div className="col-lg-3 d-none d-lg-block">
           <a
-            className="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
+            className="btn shadow-none d-flex align-items-center  justify-content-between bg-primary text-white w-100"
             data-toggle="collapse"
             href="#navbar-vertical"
             style={{ height: "65px", marginTop: "-1px", padding: "0 30px" }}
@@ -39,7 +39,7 @@ const HeaderBottom = () => {
             <i className="fa fa-angle-down text-dark"></i>
           </a>
           <nav
-              className="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
+              className="collapse show navbar navbar-vertical navbar-light bg-secondary align-items-start p-0 border border-top-0 border-bottom-0"
               id="navbar-vertical"
               style={{width: "calc(100% - 30px)",
               zIndex: 1, position:"absolute"}}
@@ -154,6 +154,27 @@ const HeaderBottom = () => {
                     <Link to="/register"  className="nav-item nav-link">Register</Link>
                   </div>
                   )}
+                  {user && ( 
+                  <div className="nav-item dropdown">
+                  <Link
+                     to="#"
+                     className="nav-link dropdown-toggle"
+                     data-toggle="dropdown"
+                   >
+                   {user.email.split("@")[0]}
+                  </Link>
+                   <div className="dropdown-menu rounded-0 m-0">
+                   {user && user.role === "subscriber" && (
+                    <Link to="/user/history" className="dropdown-item">Dashboard</Link>
+                   )}
+                   {user && user.role === "admin" && (
+                    <Link to="/admin/dashboard" className="dropdown-item">Dashboard</Link>
+                   )}
+                   
+                   <Link to="" className="dropdown-item" onClick={logout}>Logout</Link>
+                   </div>
+                 </div>)}
+                  
                 </div>
               </nav>
             </div>

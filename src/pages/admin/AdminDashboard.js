@@ -6,10 +6,10 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(false);
 
   return (
-    <>
+    
       <div className="container-fluid mb-5">
         <div className="row border-top px-xl-5">
-          <div className="col-lg-3">
+          <div className="col-lg-3 d-none d-lg-block">
             <AdminNav />
           </div>
           <div className="col-lg-9">
@@ -26,7 +26,7 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
-    </>
+    
   );
 };
 export default AdminDashboard;

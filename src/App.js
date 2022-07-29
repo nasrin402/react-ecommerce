@@ -62,7 +62,7 @@ const App = () => {
   return (
     <>
       <MainHeader/>
-      <ToastContainer />
+       <ToastContainer /> 
       <Switch>
         <Route path="/" exact component={HomeMain} />
         <Route path="/login" exact component={Login} />

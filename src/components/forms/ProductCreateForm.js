@@ -45,13 +45,13 @@ const ProductCreateForm = ({
 
       <div className="form-group">
         <label>Description</label>
-        <input
+        <textarea
           value={description}
           onChange={handleChange}
           type="text"
           className="form-control"
           name="description"
-        />
+        ></textarea>
       </div>
       <div className="form-group">
         <label>Price</label>

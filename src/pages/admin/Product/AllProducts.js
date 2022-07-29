@@ -42,12 +42,12 @@ const handleRemove =(slug) =>{
     }
 }
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
+    <div className="container-fluid ">
+        <div className="row border-top px-xl-5">
+          <div className="col-lg-3">
           <AdminNav/>
         </div>
-        <div className="col-md-10">
+        <div className="col-md-9">
           {loading ? (
             <h2>
               {" "}
